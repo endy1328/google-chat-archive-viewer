@@ -1,4 +1,4 @@
-const DB_NAME = "google-chat-archive-viewe";
+const DB_NAME = "google-chat-archive-viewer";
 const DB_VERSION = 1;
 const STORE_IMPORTS = "import_sessions";
 const STORE_CONVERSATIONS = "conversations";
