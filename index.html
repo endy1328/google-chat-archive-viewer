@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Chat Archive Viewe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">LOCAL-ONLY VIEWER</p>
+          <h1>Google Chat Archive Viewe</h1>
+        </div>
+        <div class="topbar-actions">
+          <label class="file-picker">
+            <input id="file-input" type="file" accept=".json,.zip,.tgz,.tar,.gz,application/json,application/zip" />
+            <span>아카이브 열기</span>
+          </label>
+          <button id="load-mock-button" class="ghost-button">Mock 데이터</button>
+          <button id="clear-cache-button" class="danger-button">캐시 초기화</button>
+        </div>
+      </header>
+
+      <section id="empty-state" class="empty-state">
+        <div class="empty-card">
+          <p class="eyebrow">NO UPLOADS LEAVE YOUR DEVICE</p>
+          <h2>Takeout 아카이브 또는 Mock 데이터로 시작</h2>
+          <p>
+            브라우저에서만 인덱싱하고 IndexedDB에 저장합니다. `.zip`, `.tgz`,
+            `.tar`, `.json` 입력을 열면 대화 목록, 검색, 첨부 미리보기를 바로
+            탐색할 수 있습니다.
+          </p>
+        </div>
+      </section>
+
+      <section id="indexing-state" class="indexing-state hidden" aria-live="polite">
+        <div class="spinner"></div>
+        <div>
+          <p class="eyebrow">INDEXING</p>
+          <p id="indexing-message">로컬 데이터를 준비하는 중입니다.</p>
+        </div>
+      </section>
+
+      <main id="viewer" class="viewer hidden">
+        <section class="toolbar">
+          <label class="search-field">
+            <span>검색</span>
+            <input
+              id="search-input"
+              type="search"
+              placeholder="메시지, 첨부명, 참여자 검색"
+            />
+          </label>
+          <label>
+            <span>대화 유형</span>
+            <select id="type-filter">
+              <option value="all">전체</option>
+              <option value="dm">DM</option>
+              <option value="group">Group</option>
+              <option value="space">Space</option>
+            </select>
+          </label>
+          <label>
+            <span>시작일</span>
+            <input id="start-date" type="date" />
+          </label>
+          <label>
+            <span>종료일</span>
+            <input id="end-date" type="date" />
+          </label>
+        </section>
+
+        <section class="layout">
+          <aside class="panel conversations-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">CONVERSATIONS</p>
+                <h2>대화 목록</h2>
+              </div>
+              <span id="conversation-count" class="stat-pill">0</span>
+            </div>
+            <div id="conversation-list" class="conversation-list"></div>
+          </aside>
+
+          <section class="panel timeline-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">TIMELINE</p>
+                <h2 id="timeline-title">대화를 선택하세요</h2>
+              </div>
+              <span id="message-count" class="stat-pill">0</span>
+            </div>
+            <div id="message-list" class="message-list empty-copy">
+              좌측에서 대화를 선택하면 메시지가 표시됩니다.
+            </div>
+          </section>
+
+          <aside class="panel detail-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">DETAIL</p>
+                <h2>첨부 및 메타데이터</h2>
+              </div>
+            </div>
+            <div id="detail-panel-content" class="detail-content empty-copy">
+              대화를 선택하면 참여자, 기간, 첨부 목록을 볼 수 있습니다.
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <template id="conversation-item-template">
+      <button class="conversation-item">
+        <div class="conversation-item-top">
+          <strong class="conversation-title"></strong>
+          <span class="conversation-type"></span>
+        </div>
+        <p class="conversation-meta"></p>
+        <p class="conversation-preview"></p>
+      </button>
+    </template>
+
+    <template id="message-item-template">
+      <article class="message-item">
+        <header>
+          <strong class="message-author"></strong>
+          <span class="message-time"></span>
+        </header>
+        <p class="message-text"></p>
+        <div class="message-attachments"></div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

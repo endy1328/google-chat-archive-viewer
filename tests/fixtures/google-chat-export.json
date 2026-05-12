@@ -1,0 +1,30 @@
+{
+  "name": "Product Launch Room",
+  "type": "SPACE",
+  "participants": [
+    { "name": "You" },
+    { "name": "Mina Kim" }
+  ],
+  "messages": [
+    {
+      "id": "msg-1",
+      "creator": { "name": "Mina Kim" },
+      "created_at": "2026-05-11T09:00:00Z",
+      "text": "Archive load ready",
+      "attachments": [
+        {
+          "id": "att-1",
+          "name": "notes.txt",
+          "mimeType": "text/plain",
+          "content": "parser-ready"
+        }
+      ]
+    },
+    {
+      "id": "msg-2",
+      "creator": { "name": "You" },
+      "created_at": "2026-05-11T09:30:00Z",
+      "text": "Confirmed"
+    }
+  ]
+}
